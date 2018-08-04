@@ -1,0 +1,26 @@
+// Local Variables :
+$default-gutter: 1.5%;
+
+//  Function :
+
+@function get-column-width($i, $no-of-col, $gutter-width) {
+    @return (100% - ($no-of-col / $i - 1) * $gutter-width) / $no-of-col * $i;
+}
+
+@mixin grid-generator($col-number, $for:'m', $gutter:0) {
+    $i: $col-number;
+
+    @while $i > 0 {
+        .#{$for}-col-#{$i}-of-#{$col-number} {
+            width: get-column-width($i, $col-number, $gutter) !important;// scss-lint:disable ImportantRule
+            $i: $i - 1;
+        }
+    }
+}
+
+@mixin gutter($ma-t:0, $ma-r:0, $ma-b:0, $ma-l:0) {
+    margin-top: $ma-t;
+    margin-right: $ma-r;
+    margin-bottom: $ma-b;
+    margin-left: $ma-l;
+}
